@@ -15,12 +15,12 @@ app.post("/grades", async (req, res) => {
 		
 		let t1 = performance.now()
 		const { username, password } = req.body;
-
+		console.log(username, password)
 		let html = await get_grades(username, password);
-
+		console.log(html)
 
 		let parsed = parse_grades(html);
-
+		console.log(parsed)
 		let t2 = performance.now();
 
 		res.send({
@@ -28,6 +28,7 @@ app.post("/grades", async (req, res) => {
 			grades : parsed
 		})
 	}catch(e){
+		console.log(e)
 		res.send(e)
 	}
 
