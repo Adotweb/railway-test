@@ -4,7 +4,6 @@ const puppeteer = require('puppeteer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-try{
 const { get_grades } = require("./grade_getter.js")
 const { parse_grades } = require("./grade_parser.js")
 
@@ -29,9 +28,6 @@ app.get("/grades", async (req, res) => {
 
 })
 
-}catch(e){
-	console.log(e)
-}
 
 app.get('/scrape', async (req, res) => {
   const url = req.query.url || 'https://example.com';
