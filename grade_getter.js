@@ -2,8 +2,6 @@ const puppeteer = require("puppeteer");
 
 
 
-
-
 const get_grades = (async (username, password) => {
 
 
