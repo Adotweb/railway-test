@@ -9,7 +9,7 @@ const { parse_grades } = require("./grade_parser.js")
 
 app.use(express.json());
 
-app.get("/grades", async (req, res) => {
+app.post("/grades", async (req, res) => {
 	
 	try{
 
