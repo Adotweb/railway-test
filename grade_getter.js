@@ -9,10 +9,7 @@ const get_grades = (async (username, password) => {
 	
 	try{
 	browser = await puppeteer.launch({
-		headless : true, 
-		args: [
-        		'--no-sandbox',
-    		],
+		 args: ['--no-sandbox', '--disable-setuid-sandbox']
 	});
 	}catch(e){
 		return {
@@ -23,30 +20,7 @@ const get_grades = (async (username, password) => {
 
 	let page = await browser.newPage();
 
-	let triesLogin = false;
-
-	await page.setRequestInterception(true);
-	page.on('request', (req) => {
-	
-		
-
-    		if (['stylesheet', 'font', 'media'].includes(req.resourceType())) {
-        		req.abort(); // Block unnecessary resources
-    		} else {
-		
-			if(req.url().includes("auth")){
-				triesLogin = true;	
-			}
-
-
-        		req.continue();
-
-    		}
-	});
-
-
-
-	await page.goto("https://kaschuso.so.ch/ksso");;
+	await page.goto("https://kaschuso.so.ch/ksso", {waitUntil : "domcontentloaded"});;
 
 	await page.waitForSelector("input.form-control");
 
@@ -56,10 +30,8 @@ const get_grades = (async (username, password) => {
 
 	await page.click("button.btn.btn-primary");
 
-	let time1 = performance.now()
-	await page.waitForSelector("#menu21311", {timeout : 8000});
+	await page.waitForSelector("#menu21311", {timeout : 30_000});
 
-	let time2 = performance.now()
 
 
 	await page.click("#menu21311");
