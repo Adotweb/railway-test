@@ -12,7 +12,8 @@ app.use(express.json());
 app.post("/grades", async (req, res) => {
 	
 	try{
-
+		
+		let t1 = performance.now()
 		const { username, password } = req.body;
 
 		let html = await get_grades(username, password);
@@ -20,8 +21,12 @@ app.post("/grades", async (req, res) => {
 
 		let parsed = parse_grades(html);
 
+		let t2 = performance.now();
 
-
+		res.send({
+			took : t2 - t1,
+			grades : parsed
+		})
 	}catch(e){
 		res.send(e)
 	}
