@@ -5,10 +5,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const { get_grades } = require("./grade_getter")
-const { parse_grades } = require("./grade_parser")
-
-
 app.get('/scrape', async (req, res) => {
   const url = req.query.url || 'https://example.com';
 
