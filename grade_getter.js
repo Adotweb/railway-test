@@ -13,11 +13,7 @@ const get_grades = (async (username, password) => {
 	browser = await puppeteer.launch({
 		headless : true, 
 		args: [
-        		'--disable-gpu',
-        		'--disable-extensions',
         		'--no-sandbox',
-        		'--disable-setuid-sandbox',
-			'--disable-dev-shm-usage',
     		],
 	});
 	}catch(e){
