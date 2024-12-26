@@ -1,6 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
-
+const fs = require("fs")
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,16 +17,24 @@ app.post("/grades", async (req, res) => {
 		const { username, password } = req.body;
 		let html = await get_grades(username, password);
 
+		fs.writeFileSync(__dirname + "/html.html", html, "utf8")
+
 		let parsed = parse_grades(html);
 		let t2 = performance.now();
 
 		res.send({
+			success : true,
 			took : t2 - t1,
 			grades : parsed
 		})
 	}catch(e){
+		
+
 		console.log(e)
-		res.send(e)
+		res.send({
+			success : false,
+			error : JSON.stringify(e)
+		})
 	}
 
 })

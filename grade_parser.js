@@ -37,14 +37,19 @@ function parse_grades(html){
 			return tr.slice(1, tr.length - 1).trim().split("#").map(s => s.trim())
 		}).map(gradeinfo => {
 			
-			let date, title, weight, grade;
+			let date, title, weight, grade, details;
 			let isUpcoming = true;
 			
+			console.log(gradeinfo, subject)
 			if(gradeinfo.length == 3){
 				[date, title, weight] = gradeinfo;
 			}
 			if(gradeinfo.length == 4){
 				[date, title, grade, weight] = gradeinfo;
+				isUpcoming = false;
+			}
+			if(gradeinfo.length == 5){
+				[date, title, grade, details, weight] = gradeinfo;
 				isUpcoming = false;
 			}
 			if(gradeinfo.length == 2){
@@ -54,6 +59,7 @@ function parse_grades(html){
 
 			return {
 				date, title, weight, 
+				details,
 				grade : grade ? Number(grade) : grade,
 				isUpcoming
 			}
