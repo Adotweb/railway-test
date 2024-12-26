@@ -30,7 +30,7 @@ const get_grades = (async (username, password) => {
 
 	await page.click("button.btn.btn-primary");
 
-	await page.waitForSelector("#menu21311", {timeout : 30_000});
+	await page.waitForSelector("#menu21311", {timeout : 10_000});
 
 
 
