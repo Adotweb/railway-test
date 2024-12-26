@@ -40,7 +40,6 @@ function parse_grades(html){
 			let date, title, weight, grade, details;
 			let isUpcoming = true;
 			
-			console.log(gradeinfo, subject)
 			if(gradeinfo.length == 3){
 				[date, title, weight] = gradeinfo;
 			}
