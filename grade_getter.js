@@ -7,6 +7,8 @@ const get_grades = (async (username, password) => {
 
 	let browser
 	
+	let t1 = performance.now()
+
 	try{
 	browser = await puppeteer.launch({
 		 args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -20,6 +22,20 @@ const get_grades = (async (username, password) => {
 
 	let page = await browser.newPage();
 
+	await page.setRequestInterception(true);
+
+
+	page.on("request", (request) => {
+		const resourceType = request.resourceType();
+
+
+		if(["stylesheet", "font", "image", "script", "other", "manifest"].includes(resourceType)){
+			request.abort()
+		}else{
+			request.continue()
+		}
+	})
+
 	await page.goto("https://kaschuso.so.ch/ksso", {waitUntil : "domcontentloaded"});;
 
 	await page.waitForSelector("input.form-control");
@@ -30,21 +46,31 @@ const get_grades = (async (username, password) => {
 
 	await page.click("button.btn.btn-primary");
 
+
+	let t2 = performance.now()
+
+
+
 	await page.waitForSelector("#menu21311", {timeout : 10_000});
 
+	let anchor_tag = await page.$("#menu21311");
+
+	let anchor = await anchor_tag.evaluate(anchor => anchor.href);
 
 
-	await page.click("#menu21311");
+	let t3 = performance.now()
+
+	await page.goto(anchor);
 
 	await page.waitForSelector("#sus-uebersicht-spinner")
 
-
 	let html = await page.content();
-
-
-
 	browser.close()
-	
+
+	let t4 = performance.now()
+
+
+
 	return html
 })
 

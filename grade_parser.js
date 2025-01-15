@@ -57,7 +57,8 @@ function parse_grades(html){
 
 
 			return {
-				date, title, weight, 
+				date, title,
+				weight : weight ? Number(weight): weight, 
 				details,
 				grade : grade ? Number(grade) : grade,
 				isUpcoming

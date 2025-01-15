@@ -2,7 +2,7 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const fs = require("fs")
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 const { get_grades } = require("./grade_getter.js")
 const { parse_grades } = require("./grade_parser.js")
