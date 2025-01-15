@@ -11,7 +11,8 @@ const get_grades = (async (username, password) => {
 
 	try{
 	browser = await puppeteer.launch({
-		 args: ['--no-sandbox', '--disable-setuid-sandbox']
+		 args: ['--no-sandbox', '--disable-setuid-sandbox'],
+		headless : true
 	});
 	}catch(e){
 		return {
@@ -51,7 +52,7 @@ const get_grades = (async (username, password) => {
 
 
 
-	await page.waitForSelector("#menu21311", {timeout : 10_000});
+	await page.waitForSelector("#menu21311", {timeout : 4_500});
 
 	let anchor_tag = await page.$("#menu21311");
 
